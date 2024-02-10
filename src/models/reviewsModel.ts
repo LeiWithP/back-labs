@@ -13,6 +13,7 @@ const pool = new Pool({
 });
 
 interface Review {
+  id?: string;
   email: string;
   review: string;
 }
@@ -32,6 +33,28 @@ export class ReviewsModel {
         ])
         .then((_) => resolve(`Review for ${email} created successfully`))
         .catch((error) => reject("Create Review Error: " + error));
+    });
+  }
+
+  static async putReview({ id, email, review }: Review) {
+    return new Promise((resolve, reject) => {
+      pool
+        .query("UPDATE reviews SET email = $1, review = $2 WHERE id = $3", [
+          email,
+          review,
+          id,
+        ])
+        .then((_) => resolve(`Review with id ${id} updated successfully`))
+        .catch((error) => reject("Update Review Error: " + error));
+    });
+  }
+
+  static async deleteReview(id: string) {
+    return new Promise((resolve, reject) => {
+      pool
+        .query("DELETE FROM reviews WHERE id = $1", [id])
+        .then((_) => resolve(`Review with id ${id} deleted successfully`))
+        .catch((error) => reject("Delete Review Error: " + error));
     });
   }
 }

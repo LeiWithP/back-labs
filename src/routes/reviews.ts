@@ -14,10 +14,20 @@ reviewsRouter.post("/", async (req, res) => {
     email: email,
     review: review,
   });
-  res.status(200).json({
-    message: "Review added successfully",
-    response: postResponse,
-  });
+  res.status(200).json({ response: postResponse });
+});
+
+reviewsRouter.put("/:id", async (req, res) => {
+  const id = req.params.id;
+  const { email, review } = req.body;
+  const putResponse = await ReviewsModel.putReview({ id, email, review });
+  res.status(200).json({ response: putResponse });
+});
+
+reviewsRouter.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  const deleteResponse = await ReviewsModel.deleteReview(id);
+  res.status(200).json({ response: deleteResponse });
 });
 
 export default reviewsRouter;
