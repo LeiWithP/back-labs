@@ -1,16 +1,22 @@
 import express from "express";
 import cors from "cors";
+import { configDotenv } from "dotenv";
+import reviewsRouter from "./routes/reviews";
+
+configDotenv();
 
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.APP_PORT;
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (_req, res) => {
-  res.send("Hello World");
+app.get("/", (_, res) => {
+  res.send("Created by Pedro Uziel Barrita Licea");
 });
+
+app.use("/reviews", reviewsRouter);
 
 app.listen(PORT, () => {
   console.log(`App running on http://localhost:${PORT}`);

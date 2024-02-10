@@ -1,0 +1,7 @@
+CREATE DATABASE density;
+
+CREATE TABLE IF NOT EXISTS reviews(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(100),
+    review VARCHAR(1000)
+);
