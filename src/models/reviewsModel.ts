@@ -15,8 +15,15 @@ const pool = new Pool({
 
 export class ReviewsModel {
   static async getReviews() {
-    const query = await pool.query("SELECT * FROM reviews");
-    return query.rows;
+    try {
+      const query = await pool.query("SELECT * FROM reviews");
+      return query.rows;
+    } catch (error) {
+      throw {
+        message: "Error connecting to the Database",
+        error: error,
+      };
+    }
   }
 
   static async postReview({ email, review }: Review) {
@@ -27,7 +34,12 @@ export class ReviewsModel {
           review,
         ])
         .then((_) => resolve(`Review for ${email} created successfully`))
-        .catch((error) => reject("Create Review Error: " + error));
+        .catch((error) =>
+          reject({
+            message: "Error connecting to the Database",
+            error: error,
+          })
+        );
     });
   }
 
@@ -40,7 +52,12 @@ export class ReviewsModel {
           id,
         ])
         .then((_) => resolve(`Review with id ${id} updated successfully`))
-        .catch((error) => reject("Update Review Error: " + error));
+        .catch((error) =>
+          reject({
+            message: "Error connecting to the Database",
+            error: error,
+          })
+        );
     });
   }
 
@@ -49,7 +66,12 @@ export class ReviewsModel {
       pool
         .query("DELETE FROM reviews WHERE id = $1", [id])
         .then((_) => resolve(`Review with id ${id} deleted successfully`))
-        .catch((error) => reject("Delete Review Error: " + error));
+        .catch((error) =>
+          reject({
+            message: "Error connecting to the Database",
+            error: error,
+          })
+        );
     });
   }
 }
