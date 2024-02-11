@@ -4,10 +4,9 @@ import { configDotenv } from "dotenv";
 import reviewsRouter from "./routes/reviews";
 
 configDotenv();
+const PORT = process.env.APP_PORT;
 
 const app = express();
-
-const PORT = process.env.APP_PORT;
 
 app.use(cors());
 app.use(express.json());

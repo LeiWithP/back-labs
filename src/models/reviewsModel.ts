@@ -1,5 +1,6 @@
 import { configDotenv } from "dotenv";
 import { Pool } from "pg";
+import { Review } from "../types";
 
 configDotenv();
 
@@ -11,12 +12,6 @@ const pool = new Pool({
   database: process.env.DATABASE_NAME,
   port: dbPort ? parseInt(dbPort) : 5432,
 });
-
-interface Review {
-  id?: string;
-  email: string;
-  review: string;
-}
 
 export class ReviewsModel {
   static async getReviews() {
