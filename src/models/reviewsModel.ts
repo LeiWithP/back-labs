@@ -17,7 +17,8 @@ export class ReviewsModel {
   static async getReviews() {
     try {
       const query = await pool.query("SELECT * FROM reviews");
-      return query.rows;
+      const sortedRows = query.rows.sort((a, b) => a.id - b.id);
+      return sortedRows;
     } catch (error) {
       throw {
         message: "Error connecting to the Database",
