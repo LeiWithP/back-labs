@@ -33,12 +33,12 @@ Make sure you have the following installed:
 4. Create a .env file in the root directory with this structure:
 
    ```bash
-    DATABASE_HOST=localhost
-    DATABASE_USER=postgres
-    DATABASE_PASSWORD=your_password
-    DATABASE_NAME=density
-    DATABASE_PORT=5432
-    APP_PORT=3000
+   DATABASE_HOST=localhost
+   DATABASE_USER=postgres
+   DATABASE_PASSWORD=your_password
+   DATABASE_NAME=density
+   DATABASE_PORT=5432
+   APP_PORT=3000
     ```
 
 5. Check that the information of the .env is the same as your postgres configuration and replace the password with the one of your database
